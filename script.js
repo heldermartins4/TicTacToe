@@ -47,11 +47,13 @@ const move = (p, value) => {
     p.push(value);
     check(p);
 
-    countTurn % 2 == 0 ? setTurn(p2) : setTurn(p1);
-    !winner && countTurn++;
-    // turn == p1 ? console.log("p1") : console.log("p2")
-    
-    if (countTurn % 2 == 0) {
+    // turn == p1 ? console.log("p1", p1) : console.log("p2", p2)
+
+    if (!winner && countTurn > 9) {
+        head.innerText = "Vish, deu velha...";
+        btn.classList.remove("hidden")
+        countTurn = 1;
+    } else if (countTurn % 2 == 0) {
         head.innerText = `Vez de jogador 2`
     } else head.innerText = `Vez de jogador 1`
 
@@ -72,16 +74,19 @@ for (let index = 1; index <= 9; index++) {
     el.addEventListener('click', () => {
         let data = +el.getAttribute('data-pos');
         el.classList.add("toggled");
+        countTurn % 2 == 0 ? setTurn(p2) : setTurn(p1);
+        !winner && countTurn++;
         move(turn, data);
         turn == p1 ? el.style.backgroundColor = '#0f0' : el.style.backgroundColor = '#f00'
     })
 }
 
 const restart = () => {
+    btn.classList.add("hidden")
     let el = document.querySelectorAll(".toggled");
     p1 = [];
     p2 = [];
-    console.log("p1: ", p1, "p2: ", p2)
+    // console.log("p1: ", p1, "p2: ", p2)
     setWinner(false);
     setTurn(turn);
     for (let i = 0; i < el.length; i++) {
