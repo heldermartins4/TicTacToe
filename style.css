@@ -14,10 +14,11 @@ html, body {
     height: 480px;
     margin: 0 auto;
     display: grid;
-    row-gap: 10px;
-    column-gap: 10px;
+    row-gap: 5px;
+    column-gap: 5px;
     grid-template-columns: repeat(3, 1fr);
     place-items: center;
+    background-color: #333;
 }
 
 #root div {
@@ -29,7 +30,7 @@ html, body {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    background: #ddd;
+    background: #fff;
 }
 
 i {font-size: 3rem;}
@@ -190,5 +191,6 @@ i {font-size: 3rem;}
 
      #player {
         font-size: 1.3rem;
+        padding: 5px 10px;
      }
 }

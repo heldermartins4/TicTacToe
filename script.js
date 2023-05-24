@@ -94,7 +94,7 @@ const move = (p, value) => {
 }
 
 const draw = (nextPlayer) => {
-    head.innerText = "Vish, deu velha...";
+    setHead("Vish, deu velha!")
     setModal(true)
     turnStarting = nextPlayer
     if (countTurn % 2 == 0) {
