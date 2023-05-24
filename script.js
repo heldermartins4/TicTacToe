@@ -9,6 +9,10 @@ const root = document.getElementById('root');
 const head = document.getElementById('player');
 const result = document.getElementById('result')
 
+const score1 = document.getElementById('score-1')
+const score2 = document.getElementById('score-2')
+var p1Score = 0, p2Score = 0;
+
 const dialog = document.getElementById('dialog');
 const setModal = (value) => {
     value ? dialog.style.display = 'flex' : dialog.style.display = 'none'
@@ -69,10 +73,14 @@ const move = (p, value) => {
     
     if (winner) {
         if (turn == p1) {
+            p1Score++
+            score1.innerText = p1Score
             setHead("Jogador 1 ganhou!")
             countTurn = 1
             turnStarting = p1
         } else {
+            p2Score++
+            score2.innerText = p2Score
             setHead("Jogador 2 ganhou!")
             countTurn = 2
             turnStarting = p2
@@ -120,7 +128,7 @@ const restart = () => {
     setWinner(false);
     setTurn(turn);
     for (let i = 0; i < el.length; i++) {
-        el[i].style.backgroundColor = "#ddd"
+        el[i].innerHTML = "<i class='bi bi-x-lg' style='color:transparent'></i>";
         el[i].classList.remove("toggled")
     }
 
