@@ -7,17 +7,20 @@ const setWinner = (value) => winner=value;
 
 const root = document.getElementById('root');
 const head = document.getElementById('player');
+const result = document.getElementById('result')
 
-const btn = document.createElement("button");
-btn.className = "btn"
-btn.innerText = "Jogar de novo!"
+const dialog = document.getElementById('dialog');
+const setModal = (value) => {
+    value ? dialog.style.display = 'flex' : dialog.style.display = 'none'
+}
 
-const header = head.parentNode;
-header.insertBefore(btn, head)
-btn.classList.add("hidden")
+setModal(false)
+
+const btn = document.getElementById("btn");
 btn.addEventListener('click', () => restart())
 
 var turn = p1, countTurn = 1;
+var turnStarting = p1;
 const setTurn = (value) => turn = value;
 
 const win = [
@@ -30,6 +33,19 @@ const win = [
     [2, 5, 8],
     [3, 6, 9]
 ];
+
+const setHead = (value) => {
+    head.innerText = value
+    result.innerText = value
+    head.classList.add("appear")
+    setTimeout(() => {
+        head.classList.remove("appear")
+        head.classList.add("disappear")
+    }, 1500)
+    head.classList.remove("disappear")
+}
+
+setHead("Vez de jogador 1")
 
 const check = (value) => {
     for (let i = 0; i < win.length; i++) {
@@ -47,27 +63,40 @@ const move = (p, value) => {
     p.push(value);
     check(p);
 
-    // turn == p1 ? console.log("p1", p1) : console.log("p2", p2)
-
-    if (!winner && countTurn > 9) {
-        head.innerText = "Vish, deu velha...";
-        btn.classList.remove("hidden")
-        countTurn = 1;
-    } else if (countTurn % 2 == 0) {
-        head.innerText = `Vez de jogador 2`
-    } else head.innerText = `Vez de jogador 1`
-
+    if (countTurn % 2 == 0) {
+        setHead("Vez de jogador 2")
+    } else setHead("Vez de jogador 1")
+    
     if (winner) {
         if (turn == p1) {
-            head.innerText = `Jogador 1 ganhou!`;
-        } else head.innerText = `Jogador 2 ganhou!`;
-        btn.classList.remove("hidden")
+            setHead("Jogador 1 ganhou!")
+            countTurn = 1
+            turnStarting = p1
+        } else {
+            setHead("Jogador 2 ganhou!")
+            countTurn = 2
+            turnStarting = p2
+        }
+        setModal(true)
+    } else if (!winner) {
+        // console.log(`turn: ${turn == p1 ? 'p1' : 'p2'}\ncountTurn: ${countTurn}`)
+        if (turnStarting == p2 && turn == p2 && countTurn == 11) draw(p2)
+        if (turnStarting == p1 && turn == p1 && countTurn == 10) draw(p1)
     }
+}
+
+const draw = (nextPlayer) => {
+    head.innerText = "Vish, deu velha...";
+    setModal(true)
+    turnStarting = nextPlayer
+    if (countTurn % 2 == 0) {
+        countTurn = 2
+    } else countTurn = 1
 }
 
 for (let index = 1; index <= 9; index++) {
     const el = document.createElement('div');
-    el.innerText = index;
+    el.innerHTML = "<i class='bi bi-x-lg' style='color:transparent'></i>";
     el. dataset.pos = index;
     root.append(el);
 
@@ -77,12 +106,13 @@ for (let index = 1; index <= 9; index++) {
         countTurn % 2 == 0 ? setTurn(p2) : setTurn(p1);
         !winner && countTurn++;
         move(turn, data);
-        turn == p1 ? el.style.backgroundColor = '#0f0' : el.style.backgroundColor = '#f00'
+        turn == p1 ? el.innerHTML = "<i class='bi bi-x-lg' style='color:#0f0'></i>" : 
+            el.innerHTML = "<i class='bi bi-circle' style='color:#f00'></i>"
     })
 }
 
 const restart = () => {
-    btn.classList.add("hidden")
+    setModal(false)
     let el = document.querySelectorAll(".toggled");
     p1 = [];
     p2 = [];
@@ -95,10 +125,12 @@ const restart = () => {
     }
 
     if (countTurn % 2 == 0) {
-        countTurn = 0;
-        head.innerText = `Vez de jogador 2`
+        countTurn = 2;
+        setHead("Vez de jogador 2")
+        turnStarting = p2
     } else {
         countTurn = 1;
-        head.innerText = `Vez de jogador 1`
+        setHead("Vez de jogador 1")
+        turnStarting = p1
     }
 }

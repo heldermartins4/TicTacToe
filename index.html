@@ -4,15 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <title>Tic-tac-toe</title>
 </head>
 <body>
-    <!-- <div id="area" data-pos="1">1</div> -->
     <div class="head">
-        <h1 id="player">Vez de jogador 1</h1>
+        <div class="score">
+            <div>
+                <h1>Jogador 1</h1>
+                <span id="score-1">0</span>
+            </div>
+            x
+            <div>
+                <span id="score-2">0</span>
+                <h1>Jogador 2</h1>
+            </div>
+        </div>
+        <h1 id="player" class="appear">Vez de jogador 1</h1>
     </div>
     <div id="root"></div>
+
+    <div id="dialog" class="modal">
+            <h1 id="result"></h1>
+            <button id="btn">Jogar de novo</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
