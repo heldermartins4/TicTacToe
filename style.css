@@ -64,6 +64,14 @@ i {font-size: 3rem;}
     transform: translate(-50%, 0);
 }
 
+#player i {
+    font-size: 2rem;
+    margin: 0 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: #333;
+}
+
 .appear {
     overflow: hidden;
     animation: appear 0.7s ease-in forwards;
@@ -98,7 +106,7 @@ i {font-size: 3rem;}
 
 .score {
     /* background: #ff0; */
-    width: 100%;
+    width: 80%;
     margin: 0 auto;
     font-size: 1rem;
     font-weight: 500;
@@ -111,7 +119,7 @@ i {font-size: 3rem;}
     align-items: center;
 }
 
-.score div h1 {
+.score div i {
     font-size: 1.5rem;
     color: #fff;
     background: #333;
@@ -172,7 +180,13 @@ i {font-size: 3rem;}
         height: 340px;
     }
 
-    .score div h1 { display: none; }
+    #result { font-size: 2rem; }
+
+    .head, .score { 
+        width: 100%; 
+        margin-bottom: 10px;
+    }
+    .score div i { font-size: 2rem; }
 
      #player {
         font-size: 1.3rem;

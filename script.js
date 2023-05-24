@@ -39,8 +39,8 @@ const win = [
 ];
 
 const setHead = (value) => {
-    head.innerText = value
-    result.innerText = value
+    head.innerHTML = value
+    result.innerHTML = value
     head.classList.add("appear")
     setTimeout(() => {
         head.classList.remove("appear")
@@ -49,7 +49,7 @@ const setHead = (value) => {
     head.classList.remove("disappear")
 }
 
-setHead("Vez de jogador 1")
+setHead("Vez de <i class='bi bi-x-lg'></i>")
 
 const check = (value) => {
     for (let i = 0; i < win.length; i++) {
@@ -68,20 +68,20 @@ const move = (p, value) => {
     check(p);
 
     if (countTurn % 2 == 0) {
-        setHead("Vez de jogador 2")
-    } else setHead("Vez de jogador 1")
+        setHead("Vez de <i class='bi bi-circle'></i>")
+    } else setHead("Vez de <i class='bi bi-x-lg'></i>")
     
     if (winner) {
         if (turn == p1) {
             p1Score++
             score1.innerText = p1Score
-            setHead("Jogador 1 ganhou!")
+            setHead("<i class='bi bi-x-lg'></i> ganhou!")
             countTurn = 1
             turnStarting = p1
         } else {
             p2Score++
             score2.innerText = p2Score
-            setHead("Jogador 2 ganhou!")
+            setHead("<i class='bi bi-circle'></i> ganhou!")
             countTurn = 2
             turnStarting = p2
         }
@@ -134,11 +134,11 @@ const restart = () => {
 
     if (countTurn % 2 == 0) {
         countTurn = 2;
-        setHead("Vez de jogador 2")
+        setHead("Vez de <i class='bi bi-circle'></i>")
         turnStarting = p2
     } else {
         countTurn = 1;
-        setHead("Vez de jogador 1")
+        setHead("Vez de <i class='bi bi-x-lg'></i>")
         turnStarting = p1
     }
 }
